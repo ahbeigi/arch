@@ -1,0 +1,22 @@
+- Enable wifi interface at boot
+	- pacman -S wpa_supplicant
+	- wpa_passphrase <SSID> <passphrase> > /etc/wpa_supplicant/wpa_supplicant-wlp0s29f7u3.conf
+	- update  /etc/wpa_supplicant/wpa_supplicant-wlp0s29f7u3.conf 
+ctrl_interface=/var/run/wpa_supplicant
+ctrl_interface_group=wheel
+update_config=1
+fast_reauth=1
+ap_scan=1
+
+network={
+	ssid="VIDEOTRON1033"
+	psk=4faf038e502e2a9eb3b62e066ffd8443ad894
+}
+
+	- cp /lib/systemd/system/wpa_supplicant\@.service /lib/systemd/system/wpa_supplicant\@wlp0s29f7u3.service
+	- append "/lib/systemd/system/wpa_supplicant\@wlp0s29f7u3.service" to this unit file
+	- systemctl daemon-reload
+	- systemctl enable wpa_supplicant@wlp0s29f7u3.service
+
+- Enable sshd.service
+	- systemctl enable sshd
